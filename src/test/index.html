@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-+jvb+jCJ37FkNjPyYLI3KJzQeD8pPFXUra3B/QJFqQ3txYrUPIP1eOfxK4h3cKZP"
+      src="https://lib.baomitu.com/vue/2.6.11/vue.js"
+    ></script>
+    <style>
+      .toast {
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        position: fixed;
+        top: 60px;
+        left: calc(50% - 100px);
+      }
+      .suc {
+        background-color: #f0f9eb;
+        color: #67c23a;
+      }
+      .err {
+        background-color: #fef0f0;
+        color: #f56c6c;
+      }
+      @keyframes fadeIn {
+          0% {
+              top: 0;
+              opacity: 0;
+          }
+          100% {
+            top: 60px;
+            opacity: 1;
+          }
+      }
+      @keyframes fadeOut {
+          100% {
+              top: 0;
+              opacity: 0;
+          }
+          0% {
+            top: 60px;
+            opacity: 1;
+          }
+      }
+      .fade-in {
+        animation: fadeIn forwards .7s;
+      }
+
+      .fade-out {
+        animation: fadeOut forwards .7s;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">👨打我</button>
+    <script>
+      var btn = document.getElementById("btn");
+      btn.onclick = function() {
+        var app = new Vue({
+          el: document.createElement("div"),
+          template: ` <div :class="[type, animate]" class="toast" v-if="life">
+                        {{ msg }}
+                    </div>`,
+          data() {
+            return {
+              msg: "成功",
+              type: "suc",
+              life: true,
+              animate: 'fade-in'
+            };
+          },
+        });
+        document.body.appendChild(app.$el);
+        setTimeout(function () {
+            app.animate = 'fade-out';
+        }, 1200);
+        setTimeout(function () {
+            app.life = false;
+        }, 2000);
+      };
+      // 1. 创建元素
+      // 2. insert
+      // 3. sometimes later kill me
+    </script>
+  </body>
+</html>
